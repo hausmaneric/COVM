@@ -1,0 +1,55 @@
+<h1 style="margin-bottom: 15px;">
+    <i class="material-icons">group</i> Clientes
+    <button style="float: right;" mat-raised-button color="primary" [routerLink]="['/clienteCreate']"> <i class="material-icons">add</i> Adicionar Cliente</button>
+</h1>
+<div class="container">
+    <div class="mat-elevation-z4">
+        <table class="table" style="background-color: #fff;">
+            <thead style="border-bottom: 1px solid black; bottom: 15px;">
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Nome</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Pessoa</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">CPF / CNPJ</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">UF / Cidade</td>
+                <td></td>
+                <td></td>
+            </thead>
+            <app-loading *ngIf="isLoading"></app-loading>
+            <tbody>
+                <ng-container *ngFor="let cliente of allCliente">
+                    <tr *ngIf="cliente.cpf != '' ">
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cliente.nome }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> Física </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cliente.cpf }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;"> {{ cliente.nomecidade }} <br> {{ cliente.nomeuf }} </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button [routerLink]="['/clienteUpdate',cliente.id]" color="primary">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button color="warn" (click)="onDelete(cliente.id)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                        </th>
+                    </tr>
+                    <tr *ngIf="cliente.cnpj != '' ">
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cliente.nome }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> Jurídica </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cliente.cnpj }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;"> {{ cliente.nomecidade }} <br> {{ cliente.nomeuf }} </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button [routerLink]="['/clienteUpdate',cliente.id]" color="primary">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button color="warn" (click)="onDelete(cliente.id)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                        </th>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>

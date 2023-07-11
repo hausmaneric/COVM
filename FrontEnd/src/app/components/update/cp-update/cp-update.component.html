@@ -1,0 +1,60 @@
+<div class="mat-elevation-z4">
+    <h1 style="margin-bottom: 15px;">
+        <i class="material-icons">payment</i> Conta a Pagar
+    </h1>
+    <div class="container">
+        <app-loading *ngIf="isLoading"></app-loading>
+        <form>
+            <mat-form-field appearance="outline" class="w33">
+                <mat-label>Documento</mat-label>
+                <input [(ngModel)]="cpForm.documento" required type="text" name="documento" matInput placeholder="Documento...">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w33 ml_2">
+                <mat-label>Compra</mat-label>
+                <input [(ngModel)]="cpForm.compra" type="text" name="compra" matInput placeholder="Compra...">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w33 right">
+                <mat-label>Vencimento</mat-label>
+                <input [(ngModel)]="cpForm.vencimento" name="vencimento" id="vencimento" matInput [matDatepicker]="c" readonly>
+                <mat-datepicker-toggle matSuffix disabled [for]="c"></mat-datepicker-toggle>
+                <mat-datepicker #c></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Fornecedor</mat-label>
+                <mat-select name="fornecedor" [(ngModel)]="cpForm.fornecedor" placeholder="Fornecedor..." [compareWith]="compareFn" (selectionChange)="onFornecedorSelecionada()">
+                    <mat-option *ngFor="let fornecedor of allFornecedor" [value]="fornecedor.id">{{ fornecedor.nome }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="cpForm.categoria != 0" appearance="outline" class="w50">
+                <mat-label>Categoria</mat-label>
+                <input [(ngModel)]="cpForm.nomecategoria" readonly type="text" name="categoria" matInput placeholder="Categoria...">
+            </mat-form-field>
+            <mat-form-field *ngIf="cpForm.conta != 0" appearance="outline" class="w50 right">
+                <mat-label>Conta</mat-label>
+                <input [(ngModel)]="cpForm.nomeconta" readonly type="text" name="conta" matInput placeholder="Conta...">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w33">
+                <mat-label>Valor</mat-label>
+                <input [(ngModel)]="cpForm.valor" readonly type="text" name="valor" matInput placeholder="Valor..." currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" (ngModelChange)="updateTotal()">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w33 ml_2">
+                <mat-label>Juros</mat-label>
+                <input [(ngModel)]="cpForm.juros" readonly type="text" name="juros" matInput placeholder="Juros..." currencyMask [options]="{ prefix:'', suffix: '% ', thousands: '.', decimal: ',' }">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w33 right">
+                <mat-label>Total</mat-label>
+                <input [(ngModel)]="cpForm.total" required type="text" readonly name="total" matInput placeholder="Total..." currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
+            </mat-form-field>
+
+            <div class="clear"></div>
+
+            <div *ngIf="cpForm.pago == 1" style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="gotoList()">Voltar</button>
+            </div>
+            <div *ngIf="cpForm.pago == 0" style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                <button mat-raised-button color="primary" (click)="updateCp()">Salvar</button>
+                <button style="margin-left: 8px;" mat-raised-button color="warn" (click)="gotoList()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

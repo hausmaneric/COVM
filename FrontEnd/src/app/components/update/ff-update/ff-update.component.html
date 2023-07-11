@@ -1,0 +1,20 @@
+<div class="mat-elevation-z4">
+    <h1 style="margin-bottom: 15px;">
+        <i class="material-icons">functions</i>Função do Funcionario Tipo de Funcionario
+    </h1>
+    <div class="container">
+        <app-loading *ngIf="isLoading"></app-loading>
+        <form>
+            <mat-form-field appearance="outline">
+                <mat-label>Nome</mat-label>
+                <input [(ngModel)]="ffForm.nome" required type="text" name="nome" matInput placeholder="Nome...">
+            </mat-form-field>
+
+            <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                <button mat-raised-button color="primary" (click)="updateFf()">Salvar</button>
+                <button style="margin-left: 8px;" mat-raised-button color="warn" (click)="gotoList()">Cancelar</button>
+
+            </div>
+        </form>
+    </div>
+</div>

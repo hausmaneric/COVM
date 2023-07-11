@@ -1,0 +1,72 @@
+<h1 style="margin-bottom: 15px;">
+    <i class="material-icons">inventory</i> Produtos
+    <button style="float: right;" mat-raised-button color="primary" [routerLink]="['/produtoCreate']"> <i class="material-icons">add</i> Adicionar Produto</button>
+</h1>
+<div class="container">
+    <div class="mat-elevation-z4">
+        <table class="table" style="background-color: #fff;">
+            <thead style="border-bottom: 1px solid black; bottom: 15px;">
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Nome</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Codigo de Barras</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Estoque</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Preço</td>
+                <td></td>
+                <td></td>
+            </thead>
+            <app-loading *ngIf="isLoading"></app-loading>
+            <tbody>
+                <ng-container *ngFor="let produto of allProduto">
+                    <tr *ngIf="produto.quantidade <= produto.quantidade_minima" style="background-color: #d1d665;">
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ produto.nome }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ produto.CodigoDeBarras }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ produto.quantidade }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ produto.preco_venda }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button [routerLink]="['/produtoUpdate',produto.id]" color="primary">
+                              <mat-icon>edit</mat-icon>
+                            </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button color="warn" (click)="onDelete(produto.id)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                        </th>
+                    </tr>
+                    <tr *ngIf="produto.quantidade <= 0" style="background-color: #ff6961;">
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ produto.nome }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ produto.CodigoDeBarras }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ produto.quantidade }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ produto.preco_venda }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button [routerLink]="['/produtoUpdate',produto.id]" color="primary">
+                            <mat-icon>edit</mat-icon>
+                          </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button color="warn" (click)="onDelete(produto.id)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </th>
+                    </tr>
+                    <tr *ngIf="produto.quantidade > produto.quantidade_minima">
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ produto.nome }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ produto.CodigoDeBarras }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ produto.quantidade }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ produto.preco_venda }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button [routerLink]="['/produtoUpdate',produto.id]" color="primary">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button color="warn" (click)="onDelete(produto.id)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                        </th>
+                    </tr>
+                </ng-container>
+
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+<div class="mat-elevation-z4">
+    <h1 style="margin-bottom: 15px;">
+        <i class="material-icons">badge</i> Funcionario
+    </h1>
+    <div class="container">
+        <mat-tab-group>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    Geral
+                </ng-template>
+                <div class="space">
+                    <form>
+                        <mat-form-field appearance="outline" class="w70 left">
+                            <mat-label>Nome</mat-label>
+                            <input [(ngModel)]="funcionarioForm.nome" required type="text" name="nome" matInput placeholder="Nome...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w30 right">
+                            <mat-label>Data de Nascimento</mat-label>
+                            <input [(ngModel)]="funcionarioForm.data_nascimento" name="data_nascimento" id="data_nascimento" matInput [matDatepicker]="dn" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="dn"></mat-datepicker-toggle>
+                            <mat-datepicker #dn></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w70 left">
+                            <mat-label>Identificação</mat-label>
+                            <input [(ngModel)]="funcionarioForm.identificacao" required type="text" name="identificacao" matInput placeholder="Identificação...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w30 right">
+                            <mat-label>Admissão</mat-label>
+                            <input [(ngModel)]="funcionarioForm.admissao" name="admissao" id="admissao" matInput [matDatepicker]="admissao" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="admissao"></mat-datepicker-toggle>
+                            <mat-datepicker #admissao></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 left">
+                            <mat-label>CPF</mat-label>
+                            <input [(ngModel)]="funcionarioForm.cpf" type="text" name="cpf" mask="000.000.000-00" matInput placeholder="CPF...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 ml_2">
+                            <mat-label>RG</mat-label>
+                            <input [(ngModel)]="funcionarioForm.rg" type="text" name="rg" mask="00.000.000-0" matInput placeholder="RG...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 right">
+                            <mat-label>CNPJ</mat-label>
+                            <input [(ngModel)]="funcionarioForm.cnpj" type="text" name="cnpj" mask="00.000.000/0000-00" matInput placeholder="CNPJ...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w50 left">
+                            <mat-label>Email</mat-label>
+                            <input [(ngModel)]="funcionarioForm.email" type="text" name="email" matInput placeholder="Email...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w25 left ml_1">
+                            <mat-label>Celular</mat-label>
+                            <input [(ngModel)]="funcionarioForm.telefone_1" type="text" mask="(00) 00000-0000" name="telefone_1" matInput placeholder="Celular...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w25 right">
+                            <mat-label>Telefone</mat-label>
+                            <input [(ngModel)]="funcionarioForm.telefone_2" type="text" mask="(00) 0000-0000" name="telefone_2" matInput placeholder="Telefone...">
+                        </mat-form-field>
+                        <div class="clear"></div>
+                    </form>
+                </div>
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    Endereço
+                </ng-template>
+                <div class="space">
+                    <mat-form-field appearance="outline" class="w70 left">
+                        <mat-label>Endereço</mat-label>
+                        <input [(ngModel)]="funcionarioForm.endereco" type="text" name="endereco" matInput placeholder="Endereço...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w30 right">
+                        <mat-label>CEP</mat-label>
+                        <input [(ngModel)]="funcionarioForm.cep" type="text" name="cep" mask="00.000-000" matInput placeholder="CEP...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w40 left">
+                        <mat-label>Bairro</mat-label>
+                        <input [(ngModel)]="funcionarioForm.bairro" type="text" name="bairro" matInput placeholder="Bairro...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w40 left ml_1">
+                        <mat-label>Complemento</mat-label>
+                        <input [(ngModel)]="funcionarioForm.complemento" type="text" name="complemento" matInput placeholder="Complemento...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w20 right">
+                        <mat-label>Número</mat-label>
+                        <input [(ngModel)]="funcionarioForm.numero" type="text" name="numero" matInput placeholder="Número...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w50 left">
+                        <mat-label>UF</mat-label>
+                        <mat-select name="uf" [(ngModel)]="funcionarioForm.uf" (valueChange)="getCidade()" [compareWith]="compareFn" placeholder="UF..." (selectionChange)="onUFSelecionada()">
+                            <mat-option *ngFor="let ufs of uf" [value]="ufs.id">{{ ufs.sigla }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w50 right">
+                        <mat-label>Cidade</mat-label>
+                        <mat-select name="cidade" [(ngModel)]="funcionarioForm.cidade" placeholder="Cidade..." [compareWith]="compareFn" (selectionChange)="onCidadeSelecionada()">
+                            <mat-option *ngFor="let cidades of cidade" [value]="cidades.id">{{ cidades.nome }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="clear"></div>
+                </div>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    DP
+                </ng-template>
+                <div class="space">
+                    <mat-form-field appearance="outline" class="w50 left">
+                        <mat-label>Tipo</mat-label>
+                        <mat-select name="tipo" [(ngModel)]="funcionarioForm.tipo" placeholder="Tipo..." [compareWith]="compareFn" (selectionChange)="onTipoSelecionada()">
+                            <mat-option *ngFor="let tipo of allTipo" [value]="tipo.id">{{ tipo.nome }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w50 right">
+                        <mat-label>Função</mat-label>
+                        <mat-select name="funcao" [(ngModel)]="funcionarioForm.funcao" placeholder="Função..." [compareWith]="compareFn" (selectionChange)="onFuncaoSelecionada()">
+                            <mat-option *ngFor="let funcao of allFuncao" [value]="funcao.id">{{ funcao.nome }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="valores">
+                        <h2>Valores</h2>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Salario</mat-label>
+                            <input [(ngModel)]="funcionarioForm.salario" required type="text" name="salario" matInput placeholder="Salario..." currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 left">
+                            <mat-label>Metro quadrado</mat-label>
+                            <input [(ngModel)]="funcionarioForm.m_quadrado" required type="text" name="m_quadrado" matInput placeholder="Metro quadrado..." currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 ml_2 left">
+                            <mat-label>Diaria</mat-label>
+                            <input [(ngModel)]="funcionarioForm.diaria" required type="text" name="diaria" matInput placeholder="Diaria..." currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 right">
+                            <mat-label>Mensal</mat-label>
+                            <input [(ngModel)]="funcionarioForm.mensal" required type="text" name="mensal" matInput placeholder="Mensal..." currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
+                        </mat-form-field>
+                    </div>
+                    <div class="comissao">
+                        <h2>Comissão e Desconto</h2>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cálculo</mat-label>
+                            <mat-select name="comissao_calculo" [(ngModel)]="funcionarioForm.comissao_calculo" placeholder="Cálculo..." [compareWith]="compareFn" (selectionChange)="onFuncaoSelecionada()">
+                                <mat-option value="0">Sobre o total das vendas</mat-option>
+                                <mat-option value="1">Diferenciada por produto</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 left">
+                            <mat-label>Produto</mat-label>
+                            <input [(ngModel)]="funcionarioForm.comissao_produto" required type="text" name="comissao_produto" matInput placeholder="Produto..." currencyMask [options]="{ prefix:'', suffix: '% ', thousands: '.', decimal: ',' }">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 ml_2 left">
+                            <mat-label>Serviço</mat-label>
+                            <input [(ngModel)]="funcionarioForm.comissao_servico" required type="text" name="comissao_servico" matInput placeholder="Serviço..." currencyMask [options]="{ prefix:'', suffix: '% ', thousands: '.', decimal: ',' }">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 right">
+                            <mat-label>Desconto</mat-label>
+                            <input [(ngModel)]="funcionarioForm.desconto" required type="text" name="desconto" matInput placeholder="Desconto..." currencyMask [options]="{ prefix:'', suffix: '% ', thousands: '.', decimal: ',' }">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+        <app-loading *ngIf="isLoading"></app-loading>
+        <form>
+            <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                <button mat-raised-button color="primary" (click)="createfuncionario()">Salvar</button>
+                <button style="margin-left: 8px;" mat-raised-button color="warn" (click)="gotoList()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

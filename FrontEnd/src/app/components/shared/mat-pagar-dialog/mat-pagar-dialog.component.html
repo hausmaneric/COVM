@@ -1,0 +1,42 @@
+<div>
+    <div class="content-container">
+        <form>
+            <mat-icon id="close-icon" (click)="closeDialog()">close</mat-icon>
+            <mat-form-field appearance="outline">
+                <mat-label>Documento</mat-label>
+                <input [(ngModel)]="cpForm.documento" readonly required type="text" name="documento" matInput placeholder="Documento...">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Pagamento</mat-label>
+                <input [(ngModel)]="cpForm.pagamento" name="pagamento" id="pagamento" matInput [matDatepicker]="c" readonly>
+                <mat-datepicker-toggle matSuffix [for]="c"></mat-datepicker-toggle>
+                <mat-datepicker #c></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w50 left">
+                <mat-label>Conta</mat-label>
+                <mat-select name="conta" [(ngModel)]="cpForm.conta" placeholder="Conta..." [compareWith]="compareFn" (selectionChange)="onContaSelecionada()">
+                    <mat-option *ngFor="let conta of allConta" [value]="conta.id">{{ conta.nome }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w50 right">
+                <mat-label>Categoria</mat-label>
+                <mat-select name="categoria" [(ngModel)]="cpForm.categoria" placeholder="Categoria..." [compareWith]="compareFn" (selectionChange)="onCategoriaSelecionada()">
+                    <mat-option *ngFor="let Categorias of allCategoria" [value]="Categorias.id">{{ Categorias.nome }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w50">
+                <mat-label>Valor</mat-label>
+                <input [(ngModel)]="cpForm.valor" readonly type="text" name="valor" matInput placeholder="Valor..." currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" (ngModelChange)="updateTotal()">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w50 right">
+                <mat-label>Total</mat-label>
+                <input [(ngModel)]="cpForm.total" required type="text" readonly name="total" matInput placeholder="Total..." currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
+            </mat-form-field>
+            <div class="clear"></div>
+            <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="updateCp()">Pagar</button>
+                <button style="margin-left: 8px;" mat-raised-button color="warn" [mat-dialog-close]="false">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

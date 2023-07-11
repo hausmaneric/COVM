@@ -1,0 +1,29 @@
+export interface Produto {
+  id: number;
+  nome: string;
+  descricao: string;
+  CodigoDeBarras: string;
+  unidade: string;
+  desconto: number;
+  desconto_maximo: number;
+  peso: number;
+  tamanho: number;
+  quantidade: number;
+  entrega: number;
+  quantidade_minima: number;
+  preco_compra: number;
+  margem: number;
+  preco_venda: number;
+  margem_1: number;
+  preco_venda_1: number;
+  promocao: number;
+  margem_promocao: number;
+  preco_venda_promocao: number;
+  atacado: number;
+  minimo_atacado: number;
+  margem_atacado: number;
+  preco_venda_atacado: number;
+  ultima_venda: string;
+  ultima_compra: string;
+  imagem: string;
+}

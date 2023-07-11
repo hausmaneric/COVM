@@ -1,0 +1,80 @@
+<div class="mat-elevation-z4">
+    <h1 style="margin-bottom: 15px;">
+        <i class="material-icons">badge</i> Opção de Pagamento
+    </h1>
+    <div class="container">
+        <app-loading *ngIf="isLoading"></app-loading>
+        <form>
+            <div class="dados_geral">
+                <mat-form-field appearance="outline" class="w70 left">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select name="tipo" [(ngModel)]="opgForm.tipo" [compareWith]="compareFn" placeholder="Tipo...">
+                        <mat-option value="0">À Vista</mat-option>
+                        <mat-option value="1">À Prazo</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-checkbox class="example-margin" class="w30 right" style="margin-top: 15px; text-align: right;" [(ngModel)]="opgForm.brinde" name="brinde">Brinde</mat-checkbox>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome</mat-label>
+                    <input [(ngModel)]="opgForm.nome" required type="text" name="nome" matInput placeholder="Nome...">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w33">
+                    <mat-label>Taxa</mat-label>
+                    <input [(ngModel)]="opgForm.taxa" required type="text" name="taxa" matInput placeholder="Taxa..." currencyMask [options]="{ prefix:'', suffix: '% ', thousands: '.', decimal: ',' }">
+                </mat-form-field>
+            </div>
+            <div class="opcoes right" *ngIf="opgForm.tipo == 0 || opgForm.com_entrada == true">
+                <h2>À Vista</h2>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: right;" [(ngModel)]="opgForm.v_dinheiro" name="v_dinheiro">Dinheiro</mat-checkbox>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: right;" [(ngModel)]="opgForm.v_cheque" name="v_cheque">Cheque</mat-checkbox>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: right;" [(ngModel)]="opgForm.v_credito" name="v_credito">Cartão de Crédito</mat-checkbox>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: right;" [(ngModel)]="opgForm.v_debito" name="v_debito">Cartão de Débito</mat-checkbox>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: right;" [(ngModel)]="opgForm.v_financeira" name="v_financeira">Financeira</mat-checkbox>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: right;" [(ngModel)]="opgForm.v_pix" name="v_pix">PIX</mat-checkbox>
+            </div>
+            <div class="clear"></div>
+            <div class="dados_geral" *ngIf="opgForm.tipo == 1">
+                <h2>Opções de Parcelamento</h2>
+                <mat-form-field appearance="outline" class="w33 left">
+                    <mat-label>Parcelas</mat-label>
+                    <input [(ngModel)]="opgForm.parcelas" min="0" required type="number" name="parcelas" matInput placeholder="Parcelas...">
+                </mat-form-field>
+                <mat-checkbox class="example-margin" class="w50 right" style="margin-top: 15px; text-align: left;" [(ngModel)]="opgForm.com_entrada" name="com_entrada">Com entrada</mat-checkbox>
+
+                <mat-form-field appearance="outline" class="w70">
+                    <mat-label>Entrada</mat-label>
+                    <input [(ngModel)]="opgForm.entrada" required type="text" name="entrada" matInput placeholder="Entrada..." currencyMask [options]="{ prefix:'', suffix: '% ', thousands: '.', decimal: ',' }">
+                </mat-form-field>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: left;" [(ngModel)]="opgForm.av_entrada" name="av_entrada">Permitir alterar valor de entrada</mat-checkbox>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: left;" [(ngModel)]="opgForm.av_parcelas" name="av_parcelas">Permitir alterar vencimento das parcelas</mat-checkbox>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: left;" [(ngModel)]="opgForm.carne" name="carne">Emitir carnê ao final da venda</mat-checkbox>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: left;" [(ngModel)]="opgForm.e_boleto" name="e_boleto">Emitir boleto bancária ao final da venda</mat-checkbox>
+            </div>
+            <div class="opcoes right" *ngIf="opgForm.tipo == 1" style="padding-top: 45px;">
+                <h2>À Prazo</h2>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: right;" [(ngModel)]="opgForm.a_cartao" name="a_cartao">Cartão</mat-checkbox>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: right;" [(ngModel)]="opgForm.a_crediario" name="a_crediario">Crediário</mat-checkbox>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: right;" [(ngModel)]="opgForm.a_boleto" name="a_boleto">Boleto</mat-checkbox>
+                <br>
+                <mat-checkbox class="example-margin" style="margin-top: 15px; text-align: right;" [(ngModel)]="opgForm.a_duplicata" name="a_duplicata">Duplicata</mat-checkbox>
+            </div>
+            <div class="clear"></div>
+
+            <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                <button mat-raised-button color="primary" (click)="updateOpg()">Salvar</button>
+                <button style="margin-left: 8px;" mat-raised-button color="warn" (click)="gotoList()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

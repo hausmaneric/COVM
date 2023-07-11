@@ -1,0 +1,73 @@
+<div *ngIf="ok">
+    <mat-toolbar *ngIf="mostrarMenu" class="header mat-elevation-z4">
+        <span>
+        <a>
+          <button style="background-color: transparent;top: 7px;height:50px; color: white !important;" *ngIf="mostrarMenu" mat-icon-button (click)="sidenav.toggle()" class="mat-nav-button">
+            <i class="material-icons">menu</i>
+          </button>
+        </a>
+      </span>
+        <h1 class="title" style="color: #fff;text-transform: capitalize;">{{nomeUsuario}}</h1>
+        <button style="background-color: transparent;position:absolute; right: 4%;top:10px; color: white; border: none;" routerLink="/usuario" class="mat-nav-button"><i class="material-icons">person</i></button>
+        <button style="background-color: transparent;position:absolute; right: 1%;top:10px; color: white; border: none;" (click)="deslogar()" class="mat-nav-button"><i class="material-icons">logout</i></button>
+    </mat-toolbar>
+</div>
+<mat-sidenav-container class="nav-container" style="overflow-y: hidden;">
+    <mat-sidenav #sidenav class="sidenav" mode="side" opened="{{mostrarMenu}}" style="position:absolute; height:calc(100% ) !important; overflow-y: hidden;" fixedTopGap="0">
+        <mat-list *ngIf="mostrarMenu" style="height:100% !important; overflow-y: hidden;" class="mat-list">
+            <a mat-list-item routerLink="/produto">
+                <i class="material-icons">inventory</i> Produtos
+            </a>
+            <a mat-list-item routerLink="/categoria">
+                <i class="material-icons">category</i> Categorias
+            </a>
+            <a mat-list-item routerLink="/cliente">
+                <i class="material-icons">group</i> Clientes
+            </a>
+            <button class="btn_subMenu" mat-list-item (click)="atualizarSubMenuFuncionarios()">
+              <i class="material-icons">badge</i> Funcionarios  <i class="material-icons sb_icon">{{ mostrarSubMenuFuncionarios ? 'expand_less' : 'expand_more' }}</i>
+            </button>
+            <mat-nav-list class="submenu" *ngIf="mostrarSubMenuFuncionarios">
+                <a mat-list-item class="submenu" routerLink="/ft">
+                    <i class="material-icons">format_list_bulleted</i>Tipos
+                </a>
+                <a mat-list-item class="submenu" routerLink="/ff">
+                    <i class="material-icons">functions</i>Funções
+                </a>
+                <a mat-list-item class="submenu" routerLink="/funcionario">
+                    <i class="material-icons">badge</i> Funcionarios
+                </a>
+            </mat-nav-list>
+            <a mat-list-item routerLink="/fornecedor">
+                <i class="material-icons">factory</i> Fornecedores
+            </a>
+            <button class="btn_subMenu" mat-list-item (click)="atualizarSubMenuVeiculos()">
+              <i class="material-icons">local_shipping</i> Veiculos  <i class="material-icons sb_icon">{{ mostrarSubMenuVeiculos ? 'expand_less' : 'expand_more' }}</i>
+            </button>
+            <mat-nav-list class="submenu" *ngIf="mostrarSubMenuVeiculos">
+                <a mat-list-item class="submenu" routerLink="/vt">
+                    <i class="material-icons">format_list_bulleted</i>Tipos
+                </a>
+                <a mat-list-item class="submenu" routerLink="/veiculo">
+                    <i class="material-icons">local_shipping</i>Veiculos
+                </a>
+            </mat-nav-list>
+            <a mat-list-item routerLink="/conta">
+                <i class="material-icons">account_balance_wallet</i> Contas
+            </a>
+            <a mat-list-item routerLink="/cp">
+                <i class="material-icons">payments</i> Contas a Pagar
+            </a>
+            <a mat-list-item routerLink="/cr">
+                <i class="material-icons">credit_card</i> Contas a Receber
+            </a>
+            <a mat-list-item routerLink="/opg">
+                <i class="material-icons">calculate</i> Opções de Pagamento
+            </a>
+
+        </mat-list>
+    </mat-sidenav>
+    <div class="router_padding">
+        <router-outlet></router-outlet>
+    </div>
+</mat-sidenav-container>

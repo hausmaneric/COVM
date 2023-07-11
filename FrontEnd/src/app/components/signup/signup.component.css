@@ -1,0 +1,65 @@
+.card {
+    border: none;
+    width: 500px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #202124;
+    opacity: 0.9;
+}
+
+.card h1,
+h6 {
+    color: #fff;
+}
+
+label {
+    color: #fff;
+}
+
+h1 {
+    padding-top: 2px;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+mat-form-field {
+    width: 100%;
+    color: white;
+    border-color: white;
+}
+
+mat-label {
+    color: white;
+}
+
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+}
+
+.example-radio-button {
+    margin: 5px;
+}
+
+.container {
+    margin: 2% auto;
+}
+
+.card_ativacao {
+    width: 420px;
+    height: 200px;
+    background-color: #292a2d;
+    /* opacity: 0.9; */
+    z-index: 5;
+    position: absolute;
+    border-radius: 10px;
+    bottom: 10px;
+    display: none;
+    box-shadow: 10px 5px 5px black;
+    padding: 15px;
+}

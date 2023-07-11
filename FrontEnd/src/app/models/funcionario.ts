@@ -1,0 +1,35 @@
+export interface Funcionario {
+  id: number;
+  nome: string;
+  identificacao: string;
+  cnpj: string;
+  cpf: string;
+  rg: string;
+  endereco: string;
+  numero: string;
+  complemento: string;
+  bairro: string;
+  uf: number;
+  cidade: number;
+  cep: string;
+  telefone_1: string;
+  telefone_2: string;
+  email: string;
+  salario: number;
+  m_quadrado: number;
+  diaria: number;
+  mensal: number;
+  data_nascimento: Date;
+  admissao: Date;
+  funcao: number;
+  senha: string;
+  comissao_calculo: number;
+  comissao_produto: number;
+  comissao_servico: number;
+  desconto: number;
+  tipo: number;
+  nometipo: string;
+  nomefuncao: string;
+  nomeuf: string;
+  nomecidade: string;
+}

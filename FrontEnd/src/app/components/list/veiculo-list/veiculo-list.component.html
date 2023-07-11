@@ -1,0 +1,35 @@
+<h1 style="margin-bottom: 15px;">
+    <i class="material-icons">local_shipping</i> Veiculos
+    <button style="float: right;" mat-raised-button color="primary" [routerLink]="['/veiculoCreate']"> <i class="material-icons">add</i> Adicionar Usuário</button>
+</h1>
+<div class="container">
+    <div class="mat-elevation-z4">
+        <table class="table" style="background-color: #fff;">
+            <thead style="border-bottom: 1px solid black; bottom: 15px;">
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Nome</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Tipo</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Placa</td>
+                <td></td>
+                <td></td>
+            </thead>
+            <app-loading *ngIf="isLoading"></app-loading>
+            <tbody>
+                <tr *ngFor="let veiculo of allVeiculo">
+                    <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ veiculo.nome }}</th>
+                    <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ veiculo.nometipo }}</th>
+                    <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ veiculo.placa }}</th>
+                    <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                        <button mat-icon-button [routerLink]="['/veiculoUpdate',veiculo.id]" color="primary">
+            <mat-icon>edit</mat-icon>
+          </button>
+                    </th>
+                    <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                        <button mat-icon-button color="warn" (click)="onDelete(veiculo.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

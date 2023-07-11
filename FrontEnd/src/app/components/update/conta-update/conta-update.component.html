@@ -1,0 +1,32 @@
+<div class="mat-elevation-z4">
+    <h1 style="margin-bottom: 15px;">
+        <i class="material-icons">account_balance</i> Conta
+    </h1>
+    <div class="container">
+        <app-loading *ngIf="isLoading"></app-loading>
+        <form>
+            <mat-form-field appearance="outline">
+                <mat-label>Nome</mat-label>
+                <input [(ngModel)]="contaForm.nome" required type="text" name="nome" matInput placeholder="Nome...">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w33">
+                <mat-label>Banco</mat-label>
+                <input [(ngModel)]="contaForm.banco" required type="text" mask="0000" name="banco" matInput placeholder="Banco...">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w33 ml_2">
+                <mat-label>Conta</mat-label>
+                <input [(ngModel)]="contaForm.conta" required type="text" mask="00000000-0" name="conta" matInput placeholder="Conta...">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w33 right">
+                <mat-label>Agência</mat-label>
+                <input [(ngModel)]="contaForm.agencia" required type="text" mask="0000" name="agencia" matInput placeholder="Agência...">
+            </mat-form-field>
+            <div class="clear"></div>
+
+            <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                <button mat-raised-button color="primary" (click)="createConta()">Salvar</button>
+                <button style="margin-left: 8px;" mat-raised-button color="warn" (click)="gotoList()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

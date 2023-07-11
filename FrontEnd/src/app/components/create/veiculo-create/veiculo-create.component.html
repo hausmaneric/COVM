@@ -1,0 +1,38 @@
+<div class="mat-elevation-z4">
+    <h1 style="margin-bottom: 15px;">
+        <i class="material-icons">local_shipping</i> Veiculo
+    </h1>
+    <div class="container">
+        <app-loading *ngIf="isLoading"></app-loading>
+        <form>
+            <mat-form-field appearance="outline" class="w50 left">
+                <mat-label>Nome</mat-label>
+                <input [(ngModel)]="veiculoForm.nome" required type="text" name="nome" matInput placeholder="Nome...">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w50 right">
+                <mat-label>Placa</mat-label>
+                <input [(ngModel)]="veiculoForm.placa" required type="text" name="placa" mask="AAA-0000" (input)="converterParaMaiusculas()" matInput placeholder="Placa...">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Tipo</mat-label>
+                <mat-select name="tipo" [(ngModel)]="veiculoForm.tipo" placeholder="Tipo..." (selectionChange)="onTipoSelecionada()">
+                    <mat-option *ngFor="let tipo of allVt" [value]="tipo.id">{{ tipo.nome }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w50 left">
+                <mat-label>Cor</mat-label>
+                <input [(ngModel)]="veiculoForm.cor" required type="text" name="cor" matInput placeholder="Cor...">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w50 right">
+                <mat-label>Modelo</mat-label>
+                <input [(ngModel)]="veiculoForm.modelo" required type="text" name="modelo" matInput placeholder="Modelo...">
+            </mat-form-field>
+            <div class="clear"></div>
+
+            <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                <button mat-raised-button color="primary" (click)="createVeiculo()">Salvar</button>
+                <button style="margin-left: 8px;" mat-raised-button color="warn" (click)="gotoList()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+<h1 style="margin-bottom: 15px;">
+    <i class="material-icons">credit_card</i> Contas a Receber
+    <button style="float: right;" mat-raised-button color="primary" [routerLink]="['/crCreate']"> <i class="material-icons">add</i> Adicionar Conta a Receber</button>
+    <!-- <button (click)="gerarPDF()">Gerar Relatório</button> -->
+</h1>
+<div class="criner">
+    <div class="mat-elevation-z4">
+        <table class="table" style="background-color: #fff;">
+            <thead style="border-bottom: 1px solid black; bottom: 15px;">
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Documento</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Venda</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Cliente</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Conta</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Vencimento</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Pagamento</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Tipo</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Valor</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Juros</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Total</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </thead>
+            <app-loading *ngIf="isLoading"></app-loading>
+            <tbody>
+                <ng-container *ngFor="let cr of allCr">
+                    <tr *ngIf="cr.pago == 1" style="background-color: #90ee90;">
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.documento }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.venda }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.nomecliente }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.nomeconta }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.vencimento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.pagamento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.nometipo }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cr.valor }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.juros }}%</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cr.total }}</th>
+                        <th></th>
+                        <th></th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button [routerLink]="['/crUpdate',cr.id]" color="primary">
+                          <mat-icon>visibility</mat-icon>
+                        </button>
+                        </th>
+                    </tr>
+                    <tr *ngIf="cr.vencido == 1" style="background-color: #ff6961;">
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.documento }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.venda }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.nomecliente }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.nomeconta }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.vencimento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.pagamento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.nometipo }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cr.valor }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.juros }}%</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cr.total }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button [routerLink]="['/crUpdate',cr.id]" color="primary">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button color="warn" (click)="onDelete(cr.id)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button (click)="onReceber(cr.id)" class="btn-color">
+                          <mat-icon>payments</mat-icon>
+                        </button>
+                        </th>
+                    </tr>
+                    <tr *ngIf="cr.vencido == 0 && cr.pago == 0">
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.documento }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.venda }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.nomecliente }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.nomeconta }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.vencimento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.pagamento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.nometipo }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cr.valor }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cr.juros }}%</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cr.total }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button [routerLink]="['/crUpdate',cr.id]" color="primary">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button color="warn" (click)="onDelete(cr.id)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button (click)="onReceber(cr.id)" class="btn-color">
+                        <mat-icon>payments</mat-icon>
+                      </button>
+                        </th>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- <canvas id="myChart"></canvas>
+
+<table class="table" style="display: none;" id="report">
+    <thead style="border-bottom: 1px solid black; bottom: 15px;">
+        <tr>
+            <td style="font-weight: bold; text-align: center; padding: 15px 0;">Documento</td>
+            <td style="font-weight: bold; text-align: center; padding: 15px 0;">Venda</td>
+            <td style="font-weight: bold; text-align: center; padding: 15px 0;">Cliente</td>
+            <td style="font-weight: bold; text-align: center; padding: 15px 0;">Vencimento</td>
+            <td style="font-weight: bold; text-align: center; padding: 15px 0;">Pagamento</td>
+            <td style="font-weight: bold; text-align: center; padding: 15px 0;">Total</td>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr *ngFor="let cr of allCr">
+            <th style="font-weight: normal;text-align: center; padding-top: 20px;">{{ cr.documento }}</th>
+            <th style="font-weight: normal;text-align: center; padding-top: 20px;">{{ cr.venda }}</th>
+            <th style="font-weight: normal;text-align: center; padding-top: 20px;">{{ cr.nomecliente }}</th>
+            <th style="font-weight: normal;text-align: center; padding-top: 20px;">{{ cr.vencimento | date:'dd/MM/yyyy' }}</th>
+            <th style="font-weight: normal;text-align: center; padding-top: 20px;">{{ cr.pagamento | date:'dd/MM/yyyy' }}</th>
+            <th style="font-weight: normal;text-align: center; padding-top: 20px;">R${{ cr.total }}</th>
+        </tr>
+    </tbody>
+</table>
+
+<iframe *ngIf="pdfUrl" [src]="pdfUrl" style="width: 100%; height: 500px;"></iframe> -->

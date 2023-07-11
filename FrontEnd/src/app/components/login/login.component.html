@@ -1,0 +1,82 @@
+<div style="height: 600px;" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="text-center">
+                    <h1>Login</h1>
+                    <h4>Por favor, entre com seu login e senha</h4>
+                </div>
+                <form>
+                    <app-loading *ngIf="isLoading"></app-loading>
+                    <mat-form-field appearance="outline">
+                        <mat-label style="color: white;">Login</mat-label>
+                        <input [(ngModel)]="usuarioForm.login" type="text" name="login" matInput placeholder="Login...">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label style="color: white;">Senha</mat-label>
+                        <input [(ngModel)]="usuarioForm.senha" name="senha" type="password" matInput placeholder="Senha...">
+                    </mat-form-field>
+                    <a style="color: #fff; text-decoration: none;cursor:pointer;" (click)="recDisplay()"> Recupere a senha</a>
+
+                    <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                        <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="login()">Logar</button>
+                    </div>
+                </form>
+
+                <div class="card_rec">
+                    <h2 style="color: white;">Recupere a sua senha. Digite o e-mail cadastrado</h2>
+                    <br>
+                    <app-loading *ngIf="isLoading"></app-loading>
+                    <form>
+                        <mat-form-field appearance="outline">
+                            <mat-label style="color: white;">E-mail</mat-label>
+                            <input [(ngModel)]="emailForm.to" type="email" name="emailformEmail" matInput placeholder="E-mail...">
+                        </mat-form-field>
+
+                        <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                            <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="enviarEmail()">Enviar código</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card_rec_cod">
+                    <h2 style="color: white;">Informe o código de recuperação</h2>
+                    <br>
+                    <form>
+                        <mat-form-field appearance="outline">
+                            <mat-label style="color: white;">Código de recuperação</mat-label>
+                            <input [(ngModel)]="cod_rec" name="emailformCodigo" matInput placeholder="E-mail...">
+                        </mat-form-field>
+
+                        <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                            <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="Recuperar()">Recuperar senha</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card_rec_psw">
+                    <h2 style="color: white;">Cadastre a nova senha</h2>
+                    <br>
+                    <form>
+                        <mat-form-field appearance="outline">
+                            <mat-label style="color: white;">Senha</mat-label>
+                            <input [(ngModel)]="usuarioForm.senha" type="password" name="emailformCodigo" matInput placeholder="Senha...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label style="color: white;">Confirmação</mat-label>
+                            <input [(ngModel)]="usuarioForm.confirmacao" type="password" name="emailformCodigo" matInput placeholder="Confirmação...">
+                        </mat-form-field>
+
+                        <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                            <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="RecuperarPsw()">Recuperar senha</button>
+                        </div>
+                    </form>
+                </div>
+
+                <a style="color: #fff; text-decoration: none;display:none;" class="cad" routerLink="/signup"> Novo usuário? Cadastre-se</a>
+
+            </div>
+        </div>
+    </div>
+</div>

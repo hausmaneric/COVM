@@ -1,0 +1,31 @@
+<h1 style="margin-bottom: 15px;">
+    <i class="material-icons">format_list_bulleted</i> Tipos de veículos
+    <button style="float: right;" mat-raised-button color="primary" [routerLink]="['/vtCreate']"> <i class="material-icons">add</i> Adicionar Tipo</button>
+</h1>
+<div class="container">
+    <div class="mat-elevation-z4">
+        <table class="table" style="background-color: #fff;">
+            <thead style="border-bottom: 1px solid black; bottom: 15px;">
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Nome</td>
+                <td></td>
+                <td></td>
+            </thead>
+            <app-loading *ngIf="isLoading"></app-loading>
+            <tbody>
+                <tr *ngFor="let vt of allVt">
+                    <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ vt.nome }}</th>
+                    <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                        <button mat-icon-button [routerLink]="['/vtUpdate',vt.id]" color="primary">
+        <mat-icon>edit</mat-icon>
+      </button>
+                    </th>
+                    <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                        <button mat-icon-button color="warn" (click)="onDelete(vt.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

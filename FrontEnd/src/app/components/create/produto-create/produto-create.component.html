@@ -1,0 +1,141 @@
+<div class="mat-elevation-z4">
+    <h1 style="margin-bottom: 15px;">
+        <i class="material-icons">group</i> Produto
+    </h1>
+    <div class="container">
+        <mat-tab-group>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    Geral
+                </ng-template>
+                <div class="space">
+                    <form>
+                        <mat-form-field appearance="outline" class="w50 left">
+                            <mat-label>Nome</mat-label>
+                            <input [(ngModel)]="produtoForm.nome" required type="text" name="nome" matInput placeholder="Nome...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w30 ml_2">
+                            <mat-label>Codigo de Barras</mat-label>
+                            <input [(ngModel)]="produtoForm.CodigoDeBarras" required type="text" name="CodigoDeBarras" matInput placeholder="Codigo de Barras...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w20 right">
+                            <mat-label>Preço de Venda</mat-label>
+                            <input [(ngModel)]="produtoForm.preco_venda" disabled type="text" name="preco_venda" matInput placeholder="Preço de Venda...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w70 left">
+                            <mat-label>Descrição</mat-label>
+                            <input [(ngModel)]="produtoForm.descricao" type="text" name="descricao" matInput placeholder="Descrição...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w15 ml_2">
+                            <mat-label>Unidade</mat-label>
+                            <mat-select name="pessoa" [(value)]="produtoForm.unidade" required [(ngModel)]="produtoForm.unidade" [compareWith]="compareFn" placeholder="Unidade...">
+                                <mat-option value="0">UN</mat-option>
+                                <mat-option value="1">M</mat-option>
+                                <mat-option value="2">M²</mat-option>
+                                <mat-option value="3">M³</mat-option>
+                                <mat-option value="4">PC</mat-option>
+                                <mat-option value="5">CX</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w15 right">
+                            <mat-label>Quantidade</mat-label>
+                            <input [(ngModel)]="produtoForm.quantidade" type="number" (change)="getMinimo($event)" min="0" name="quantidade" matInput placeholder="Quantidade...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w15 right">
+                            <mat-label>Quantidade Minima</mat-label>
+                            <input [(ngModel)]="produtoForm.quantidade_minima" type="number" min="0" (ngModelChange)="onInputChange($event)" [max]="valorFinal" name="qtdminima" matInput placeholder="Quantidade Minima...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 left">
+                            <mat-label>Peso</mat-label>
+                            <input [(ngModel)]="produtoForm.peso" type="number" min="0" name="peso" matInput placeholder="Peso...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 ml_2">
+                            <mat-label>Tamanho</mat-label>
+                            <input [(ngModel)]="produtoForm.tamanho" type="number" min="0" name="tamanho" matInput placeholder="Tamanho...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 left">
+                            <mat-label>Ultima Compra</mat-label>
+                            <input [(ngModel)]="produtoForm.ultima_compra" name="ultima_compra" id="ultima_compra" matInput [matDatepicker]="uc" readonly>
+                            <mat-datepicker-toggle matSuffix disabled [for]="uc"></mat-datepicker-toggle>
+                            <mat-datepicker #uc></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w33 ml_2">
+                            <mat-label>Ultima Venda</mat-label>
+                            <input [(ngModel)]="produtoForm.ultima_venda" name="ultima_venda" id="ultima_venda" matInput [matDatepicker]="dn" readonly>
+                            <mat-datepicker-toggle matSuffix disabled [for]="dn"></mat-datepicker-toggle>
+                            <mat-datepicker #dn></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w15 right">
+                            <mat-label>Entrega</mat-label>
+                            <input [(ngModel)]="produtoForm.entrega" type="number" min="0" (ngModelChange)="onInputChanges($event)" [max]="valorFinal" name="entrega" matInput placeholder="Entrega...">
+                        </mat-form-field>
+                        <div class="clear"></div>
+                    </form>
+                </div>
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    Valores
+                </ng-template>
+                <div class="space">
+                    <mat-form-field appearance="outline" class="w33">
+                        <mat-label>Preço de Compra</mat-label>
+                        <input [(ngModel)]="produtoForm.preco_compra" type="text" name="preco_compra" matInput currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="Preço de Compra...">
+                    </mat-form-field>
+                    <mat-checkbox class="w25 ml_2" style="margin-top: 15px; text-align:right" [(ngModel)]="produtoForm.promocao" name="promocao">Promoção</mat-checkbox>
+                    <mat-checkbox class="w25" style="margin-top: 15px; text-align:right" [(ngModel)]="produtoForm.atacado" name="atacado">Atacado</mat-checkbox>
+                    <br>
+                    <mat-form-field appearance="outline" class="w25">
+                        <mat-label>Margem</mat-label>
+                        <input [(ngModel)]="produtoForm.margem" type="text" (ngModelChange)="updatePrecoVenda()" name="margem" matInput placeholder="Margem..." currencyMask [options]="{ prefix:'', suffix: '% ', thousands: '.', decimal: ',' }">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w25 ml_1">
+                        <mat-label>Margem 1</mat-label>
+                        <input [(ngModel)]="produtoForm.margem_1" type="text" name="margem_1" (ngModelChange)="updatePrecoVenda1()" matInput placeholder="Margem 1..." currencyMask [options]="{ prefix:'', suffix: '% ', thousands: '.', decimal: ',' }">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w25 ml_1">
+                        <mat-label>Margem Promoção</mat-label>
+                        <input [(ngModel)]="produtoForm.margem_promocao" type="text" name="margem_promocao" (ngModelChange)="updatePrecoVendaPromocao()" matInput placeholder="Margem Promoção..." [disabled]="produtoForm.promocao == 0" currencyMask [options]="{ prefix:'', suffix: '% ', thousands: '.', decimal: ',' }">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w25 right">
+                        <mat-label>Margem Atacado</mat-label>
+                        <input [(ngModel)]="produtoForm.margem_atacado" type="text" name="margem_atacado" (ngModelChange)="updatePrecoVendaAtacado()" matInput placeholder="Margem Atacado..." currencyMask [disabled]="produtoForm.atacado == 0" [options]="{ prefix:'', suffix: '% ', thousands: '.', decimal: ',' }">
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="outline" class="w25">
+                        <mat-label>Preço de Venda</mat-label>
+                        <input [(ngModel)]="produtoForm.preco_venda" type="text" (ngModelChange)="updateMargem()" name="preco_venda" matInput currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="Preço de Venda...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w25 ml_1">
+                        <mat-label>Preço de Venda 1</mat-label>
+                        <input [(ngModel)]="produtoForm.preco_venda_1" type="text" (ngModelChange)="updateMargem1()" name="preco_venda_1" matInput currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="Preço de Venda 1...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w25 ml_1">
+                        <mat-label>Preço de Venda Promoção</mat-label>
+                        <input [(ngModel)]="produtoForm.preco_venda_promocao" type="text" (ngModelChange)="updateMargemPromocao()" name="preco_venda_promocao" matInput currencyMask [disabled]="produtoForm.promocao == 0" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                            placeholder="Preço de Venda Promoção...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w25 right">
+                        <mat-label>Preço de Venda Atacado</mat-label>
+                        <input [(ngModel)]="produtoForm.preco_venda_atacado" type="text" (ngModelChange)="updateMargemAtacado()" name="preco_venda_atacado" matInput currencyMask [disabled]="produtoForm.atacado == 0" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                            placeholder="Preço de Venda Atacado...">
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="outline" class="w25 right">
+                        <mat-label>Quantidade Minima Atacado</mat-label>
+                        <input [(ngModel)]="produtoForm.minimo_atacado" type="number" min="0" name="minimo_atacado" matInput [disabled]="produtoForm.atacado == 0" placeholder="Quantidade Minima Atacado...">
+                    </mat-form-field>
+                    <div class="clear"></div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+        <app-loading *ngIf="isLoading"></app-loading>
+        <form>
+            <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                <button mat-raised-button color="primary" (click)="createProduto()">Salvar</button>
+                <button style="margin-left: 8px;" mat-raised-button color="warn" (click)="gotoList()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<h1 style="margin-bottom: 15px;">
+    <i class="material-icons">account_balance</i> Contas a Pagar
+    <button style="float: right;" mat-raised-button color="primary" [routerLink]="['/cpCreate']"> <i class="material-icons">add</i> Adicionar Conta</button>
+</h1>
+<div class="cpiner">
+    <div class="mat-elevation-z4">
+        <table class="table" style="background-color: #fff;">
+            <thead style="border-bottom: 1px solid black; bottom: 15px;">
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Documento</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Fornecedor</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Conta</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Vencimento</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Pagamento</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Valor</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Juros</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Total</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </thead>
+            <app-loading *ngIf="isLoading"></app-loading>
+            <tbody>
+                <ng-container *ngFor="let cp of allCp">
+                    <tr *ngIf="cp.pago == 1" style="background-color: #90ee90;">
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.documento }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.nomefornecedor }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.nomeconta }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.vencimento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.pagamento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cp.valor }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.juros }}%</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cp.total }}</th>
+                        <th></th>
+                        <th></th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button [routerLink]="['/cpUpdate',cp.id]" color="primary">
+                            <mat-icon>visibility</mat-icon>
+                          </button>
+                        </th>
+                    </tr>
+                    <tr *ngIf="cp.vencido == 1" style="background-color: #ff6961;">
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.documento }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.nomefornecedor }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.nomeconta }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.vencimento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.pagamento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cp.valor }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.juros }}%</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cp.total }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button [routerLink]="['/cpUpdate',cp.id]" color="primary">
+                            <mat-icon>edit</mat-icon>
+                          </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button color="warn" (click)="onDelete(cp.id)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button (click)="onPagar(cp.id)" class="btn-color">
+                            <mat-icon>payments</mat-icon>
+                          </button>
+                        </th>
+                    </tr>
+                    <tr *ngIf="cp.vencido == 0 && cp.pago == 0">
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.documento }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.nomefornecedor }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.nomeconta }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.vencimento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.pagamento | date:'dd/MM/yyyy' }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cp.valor }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ cp.juros }}%</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 20px;"> R${{ cp.total }}</th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button [routerLink]="['/cpUpdate',cp.id]" color="primary">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button color="warn" (click)="onDelete(cp.id)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                        </th>
+                        <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                            <button mat-icon-button (click)="onPagar(cp.id)" class="btn-color">
+                          <mat-icon>payments</mat-icon>
+                        </button>
+                        </th>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>

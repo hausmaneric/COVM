@@ -1,0 +1,91 @@
+<div class="mat-elevation-z4">
+    <h1 style="margin-bottom: 15px;">
+        <i class="material-icons">group</i> Fornecedor
+    </h1>
+    <div class="container">
+        <mat-tab-group>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    Geral
+                </ng-template>
+                <div class="space">
+                    <form>
+                        <mat-form-field appearance="outline" class="w70 left">
+                            <mat-label>Nome</mat-label>
+                            <input [(ngModel)]="fornecedorForm.nome" required type="text" name="nome" matInput placeholder="Nome...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w30 right">
+                            <mat-label>CNPJ</mat-label>
+                            <input [(ngModel)]="fornecedorForm.cnpj" type="text" name="cnpj" mask="00.000.000/0000-00" matInput placeholder="CNPJ...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fantasia</mat-label>
+                            <input [(ngModel)]="fornecedorForm.fantasia" type="text" name="fantasia" matInput placeholder="Fantasia...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w50 left">
+                            <mat-label>Email</mat-label>
+                            <input [(ngModel)]="fornecedorForm.email" type="text" name="email" matInput placeholder="Email...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w25 left ml_1">
+                            <mat-label>Celular</mat-label>
+                            <input [(ngModel)]="fornecedorForm.telefone_1" type="text" mask="(00) 00000-0000" name="telefone_1" matInput placeholder="Celular...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w25 right">
+                            <mat-label>Telefone</mat-label>
+                            <input [(ngModel)]="fornecedorForm.telefone_2" type="text" mask="(00) 0000-0000" name="telefone_2" matInput placeholder="Telefone...">
+                        </mat-form-field>
+                        <div class="clear"></div>
+                    </form>
+                </div>
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    Endereço
+                </ng-template>
+                <div class="space">
+                    <mat-form-field appearance="outline" class="w70 left">
+                        <mat-label>Endereço</mat-label>
+                        <input [(ngModel)]="fornecedorForm.endereco" type="text" name="endereco" matInput placeholder="Endereço...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w30 right">
+                        <mat-label>CEP</mat-label>
+                        <input [(ngModel)]="fornecedorForm.cep" type="text" name="cep" mask="00.000-000" matInput placeholder="CEP...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w40 left">
+                        <mat-label>Bairro</mat-label>
+                        <input [(ngModel)]="fornecedorForm.bairro" type="text" name="bairro" matInput placeholder="Bairro...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w40 left ml_1">
+                        <mat-label>Complemento</mat-label>
+                        <input [(ngModel)]="fornecedorForm.complemento" type="text" name="complemento" matInput placeholder="Complemento...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w20 right">
+                        <mat-label>Número</mat-label>
+                        <input [(ngModel)]="fornecedorForm.numero" type="text" name="numero" matInput placeholder="Número...">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w50 left">
+                        <mat-label>UF</mat-label>
+                        <mat-select name="uf" [(ngModel)]="fornecedorForm.uf" (valueChange)="getCidade()" placeholder="UF..." [compareWith]="compareFn" (selectionChange)="onUFSelecionada()">
+                            <mat-option *ngFor="let ufs of uf" [value]="ufs.id">{{ ufs.sigla }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w50 right">
+                        <mat-label>Cidade</mat-label>
+                        <mat-select name="cidade" [(ngModel)]="fornecedorForm.cidade" placeholder="Cidade..." (selectionChange)="onCidadeSelecionada()" [compareWith]="compareFn">
+                            <mat-option *ngFor="let cidades of cidade" [value]="cidades.id">{{ cidades.nome }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="clear"></div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+        <app-loading *ngIf="isLoading"></app-loading>
+        <form>
+            <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                <button mat-raised-button color="primary" (click)="updatefornecedor()">Salvar</button>
+                <button style="margin-left: 8px;" mat-raised-button color="warn" (click)="gotoList()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="mat-elevation-z4">
+    <h1 style="margin-bottom: 15px;">
+        <i class="material-icons">category</i> Categoria
+    </h1>
+    <div class="container">
+        <app-loading *ngIf="isLoading"></app-loading>
+        <form>
+            <mat-form-field appearance="outline">
+                <mat-label>Código</mat-label>
+                <input [(ngModel)]="categoriaForm.codigo" required type="text" name="codigo" matInput placeholder="Código...">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Nome</mat-label>
+                <input [(ngModel)]="categoriaForm.nome" required type="text" name="nome" matInput placeholder="Nome...">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Tipo</mat-label>
+                <mat-select name="categoriaTipo" [(value)]="categoriaForm.tipo" (valueChange)="getTipo()" [(ngModel)]="categoriaForm.tipo" placeholder="Tipo...">
+                    <mat-option value="0">A Pagar</mat-option>
+                    <mat-option value="1">A Receber</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                <button mat-raised-button color="primary" (click)="createCategoria()">Salvar</button>
+                <button style="margin-left: 8px;" mat-raised-button color="warn" (click)="gotoList()">Cancelar</button>
+
+            </div>
+        </form>
+    </div>
+</div>

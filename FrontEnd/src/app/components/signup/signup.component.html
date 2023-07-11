@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="text-center">
+                    <h1>Cadastra-se</h1>
+                </div>
+                <form>
+                    <mat-form-field appearance="outline">
+                        <mat-label>E-mail</mat-label>
+                        <input [(ngModel)]="usuarioForm.email" required type="email" name="email" matInput placeholder="E-mail...">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Login</mat-label>
+                        <input [(ngModel)]="usuarioForm.login" required type="text" name="login" matInput placeholder="Login...">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Senha</mat-label>
+                        <input [(ngModel)]="usuarioForm.senha" required name="senha" type="password" matInput placeholder="Senha...">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Confirmação</mat-label>
+                        <input [(ngModel)]="usuarioForm.confirmacao" required name="confirmacao" type="password" matInput placeholder="Confirmação...">
+                    </mat-form-field>
+
+                    <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'end'">
+                        <button mat-raised-button color="primary" (click)="createUsuario()">Cadastrar</button>
+                        <button style="margin-left: 8px;" mat-raised-button color="warn" (click)="gotoLogin()">Cancelar</button>
+                    </div>
+                </form>
+                <div id="card_ativacao" class="card_ativacao">
+                    <h2 style="color: white;">Informe o código de ativação!</h2>
+                    <form>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Código de ativação</mat-label>
+                            <input [(ngModel)]="text1" name="nome" matInput placeholder="Código de ativação...">
+                        </mat-form-field>
+                        <div style="padding-top: 8px; float: right;" mat-dialog-actions [align]="'center'">
+                            <button mat-raised-button color="primary" (click)="Confirmar()">Confirmar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

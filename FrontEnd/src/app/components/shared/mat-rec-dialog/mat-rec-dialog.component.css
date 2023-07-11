@@ -1,0 +1,93 @@
+h1 {
+    padding-top: 2px;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+}
+
+.example-radio-button {
+    margin: 5px;
+}
+
+.container {
+    margin: 2% auto;
+}
+
+.mat-elevation-z4 {
+    height: 100% !important;
+    background-color: white !important;
+    padding: 2%;
+    border-radius: 4px;
+    padding-bottom: 3% !important;
+}
+
+.w50 {
+    width: 49%;
+}
+
+.w30 {
+    width: 29%;
+}
+
+.w70 {
+    width: 69%;
+}
+
+.w33 {
+    width: 32%;
+}
+
+.w25 {
+    width: 24%;
+}
+
+.w40 {
+    width: 39%;
+}
+
+.w20 {
+    width: 19%;
+}
+
+.ml_2 {
+    margin-left: 2%;
+}
+
+.ml_1 {
+    margin-left: 1.5%;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.space {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.clear {
+    clear: both;
+}
+
+form {
+    padding: 2%;
+}

@@ -1,0 +1,35 @@
+<h1 style="margin-bottom: 15px;">
+    <i class="material-icons">category</i> Categorias
+    <button style="float: right;" mat-raised-button color="primary" [routerLink]="['/categoriaCreate']"> <i class="material-icons">add</i> Adicionar Categoria</button>
+</h1>
+<div class="container">
+    <div class="mat-elevation-z4">
+        <table class="table" style="background-color: #fff;">
+            <thead style="border-bottom: 1px solid black; bottom: 15px;">
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Código</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Nome</td>
+                <td style="font-weight: bold; text-align: center; padding: 15px 0;">Tipo</td>
+                <td></td>
+                <td></td>
+            </thead>
+            <app-loading *ngIf="isLoading"></app-loading>
+            <tbody>
+                <tr *ngFor="let categoria of allCategoria">
+                    <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ categoria.codigo }}</th>
+                    <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ categoria.nome }}</th>
+                    <th style="font-weight: normal;text-align: center; padding-top: 20px;"> {{ categoria.nometipo }}</th>
+                    <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                        <button mat-icon-button [routerLink]="['/categoriaUpdate',categoria.id]" color="primary">
+            <mat-icon>edit</mat-icon>
+          </button>
+                    </th>
+                    <th style="font-weight: normal;text-align: center; padding-top: 10px;">
+                        <button mat-icon-button color="warn" (click)="onDelete(categoria.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
