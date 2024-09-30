@@ -7,8 +7,6 @@
  
  O projeto está conectado a api, a mesma gerada na pasta BackEnd, que está rodando em uma maquina virtual da AWS.
  
- Aplicação funcionando: http://covm.s3-website-sa-east-1.amazonaws.com
- 
  Usuário padrão: Eric Senha padrão: 1234
  
  Ao acessar o aplicativo você poderá criar novos usuários.
